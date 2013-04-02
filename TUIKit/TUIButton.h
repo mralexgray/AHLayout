@@ -26,40 +26,40 @@
 @class TUIImageView;
 
 typedef enum TUIButtonType : NSUInteger {
-    TUIButtonTypeCustom
+	TUIButtonTypeCustom
 } TUIButtonType;
 
 @interface TUIButton : TUIControl
 {
 	NSMutableDictionary		*_contentLookup;
-	TUIEdgeInsets           _titleEdgeInsets;
-    TUIEdgeInsets           _imageEdgeInsets;
+	TUIEdgeInsets		   _titleEdgeInsets;
+	TUIEdgeInsets		   _imageEdgeInsets;
 
-	TUIImageView           *_imageView;
-	TUILabel               *_titleView;
+	TUIImageView		   *_imageView;
+	TUILabel			   *_titleView;
 	
 	NSMenu *popUpMenu;
 	
-    struct {
+	struct {
 		unsigned int dimsInBackground:1;
-        unsigned int buttonType:8;
+		unsigned int buttonType:8;
 		unsigned int firstDraw:1;
 		unsigned int reversesTitleShadowWhenHighlighted:1;
-    } _buttonFlags;
+	} _buttonFlags;
 }
 
 + (id)buttonWithType:(TUIButtonType)buttonType;
 + (id)button; // custom
 
-@property(nonatomic,assign)        TUIEdgeInsets    titleEdgeInsets;
-@property(nonatomic,assign)        TUIEdgeInsets    imageEdgeInsets;
+@property(nonatomic,assign)		TUIEdgeInsets	titleEdgeInsets;
+@property(nonatomic,assign)		TUIEdgeInsets	imageEdgeInsets;
 @property(nonatomic,assign) BOOL dimsInBackground;
 
 @property(nonatomic,readonly) TUIButtonType buttonType;
 
 @property (nonatomic, strong) NSMenu *popUpMenu;
 
-@property(nonatomic,readonly,strong) TUILabel     *titleLabel;
+@property(nonatomic,readonly,strong) TUILabel	 *titleLabel;
 @property(nonatomic,readonly,strong) TUIImageView *imageView;
 
 @property (nonatomic, assign) BOOL reversesTitleShadowWhenHighlighted;

@@ -3,102 +3,99 @@
 //  Swift
 //
 //  Created by John Wright on 11/13/11.
-//  Copyright (c) 2011 AirHeart. All rights reserved.
+// CPright (c) 2011 AirHeart. All rights reserved.
 //
 
 #define kAHLayoutViewHeight @"kAHLayoutViewHeight"
 #define kAHLayoutViewWidth @"kAHLayoutViewWidth"
 
-#import "TUIKit.h"
+//#import "TUIKit.h"
+#import <AtoZ/AtoZ.h>
 
 @interface NSString(TUICompare)
-
--(NSComparisonResult)compareNumberStrings:(NSString *)str;
-
+- (NSComparisonResult)compareNumberStrings:(NSString *)str;
 @end
+typedef NS_ENUM( NSUI, AHLayoutScrollPosition ){		
+AHLayoutScrollPositionNone,			AHLayoutScrollPositionTop,		
+AHLayoutScrollPositionMiddle,		AHLayoutScrollPositionBottom,
+AHLayoutScrollPositionToVisible 	// currently the only supported arg
+}; 
+// a callback handler to be used in various layout operations
+typedef NS_ENUM( NSUI, AHLayoutType) {	AHLayoutVertical,   AHLayoutHorizontal }; 	
 
 #define kAHLayoutAnimation @"AHLayoutAnimation"
-
 @class AHLayout;
 @class AHLayoutObject;
 typedef void(^AHLayoutHandler)(AHLayout *layout);
-typedef void(^AHLayoutViewAnimationBlock)(AHLayout *layout, TUIView *view);
-
-typedef enum {
-	AHLayoutScrollPositionNone,
-	AHLayoutScrollPositionTop,
-	AHLayoutScrollPositionMiddle,
-	AHLayoutScrollPositionBottom,
-	AHLayoutScrollPositionToVisible, // currently the only supported arg
-} AHLayoutScrollPosition;
-
-
-// a callback handler to be used in various layout operations
-typedef enum {
-	AHLayoutVertical,
-    AHLayoutHorizontal,
-} AHLayoutType;
-
+typedef void(^AHLayoutViewAnimationBlock)(AHLayout *layout, TUIV*view);
 
 @protocol AHLayoutDataSource;
-
 @interface AHLayout : TUIScrollView <TUIScrollViewDelegate>
 
-@property (nonatomic, weak) NSObject<AHLayoutDataSource> *dataSource;
-
-@property (nonatomic, weak) Class viewClass;
-@property (nonatomic) AHLayoutType typeOfLayout;
-@property (nonatomic) CGFloat spaceBetweenViews;
-@property (nonatomic, readonly) NSInteger numberOfViews;
-@property (nonatomic, strong) NSDate *reloadedDate;
-@property (nonatomic, copy) AHLayoutHandler reloadHandler;
-@property (nonatomic, readonly) NSArray *visibleViews;
-@property (nonatomic) BOOL didFirstLayout;
+@property (NATOM,WK) 		NSObject<AHLayoutDataSource> *dataSource;
+@property (NATOM,WK)		Class 					  			 viewClass;
+@property (NATOM) 			AHLayoutType 		  			 typeOfLayout;
+@property (NATOM) 			CGFloat 					  spaceBetweenViews;
+@property (NATOM,RONLY) NSI 					  		   numberOfViews;
+@property (NATOM,STRNG) NSDate 				 			*reloadedDate;
+@property (NATOM,CP)	 	AHLayoutHandler    			reloadHandler;
+@property (NATOM,RONLY) NSA						 			*visibleViews;
+@property (NATOM) 			BOOL 							  didFirstLayout;
 
 #pragma mark - General
 
-- (TUIView *)dequeueReusableView;
-- (void)reloadData;
-- (TUIView*) viewForIndex:(NSUInteger) index;
--(NSInteger) indexForView:(TUIView*)v;
-- (NSUInteger)indexOfViewAtPoint:(CGPoint) point;
-- (TUIView*) viewAtPoint:(CGPoint) point;
-- (void)scrollToViewAtIndex:(NSUInteger)index atScrollPosition:(AHLayoutScrollPosition)scrollPosition animated:(BOOL)animated;
-- (CGRect) rectForViewAtIndex:(NSUInteger) index;
--(TUIView*) replaceViewForObjectAtIndex:(NSUInteger) index withSize:(CGSize) size;
--(NSUInteger) objectIndexAtTopOfScreen;
-
+- (TUIV*)  dequeueReusableView;
+- (void)   reloadData;
+- (NSI)    indexForView:			 (TUIV*) v;
+- (TUIV*)  viewForIndex:		     (NSUI) index;
+- (NSUI)   indexOfViewAtPoint:   (CGP) point;
+- (TUIV*)  viewAtPoint:		      (CGP) point;
+- (NSUI)   objectIndexAtTopOfScreen;
+- (CGR) rectForViewAtIndex: 			 (NSUI) index;
+- (TUIV*)  replaceViewForObjectAtIndex: (NSUI) index withSize:(CGSZ) size;
+- (void)   scrollToViewAtIndex: 			 (NSUI) index atScrollPosition:(AHLayoutScrollPosition)scrollPosition 
+																				 animated:(BOOL)animated;
 #pragma mark - Layout transactions
--(void) beginUpdates;
--(void) endUpdates;
+- (void) beginUpdates;
+- (void) endUpdates;
 
 #pragma mark - Resizing
-- (void) resizeViewsAtIndexes:(NSArray*) objectIndexes sizes:(NSArray*) sizes animationBlock:(void (^)())animationBlock completion:(void (^)())completionBlock;
--(void) resizeViewsToSize:(CGSize) size scrollToObjectIndex:(NSUInteger) scrollToObjectIndex animationBlock:(void (^)())animationBlock completionBlock:(void (^)())completion;
-- (void) resizeViewAtIndex:(NSUInteger) index toSize:(CGSize) size animationBlock:(void (^)())animationBlock  completionBlock:(void (^)())completionBlock;
-
+- (void) resizeViewsAtIndexes:(NSA*) objectIndexes 				  sizes:(NSA*) sizes 
+					animationBlock:(void (^)())animationBlock completion:(void (^)())completionBlock;
+					
+- (void) resizeViewsToSize:(CGSZ) size 			  scrollToObjectIndex:(NSUI) scrollToObjectIndex 
+			  animationBlock:(void (^)())animationBlock 	completionBlock:(void (^)())completion;
+			  
+- (void) resizeViewAtIndex:(NSUI) index toSize:(CGSZ) size animationBlock:(void (^)())animationBlock  
+																		      completionBlock:(void (^)())completionBlock;
 #pragma mark - Adding and removing views
--(void) insertViewAtIndex:(NSUInteger) index;
--(void) insertViewAtIndex:(NSUInteger) index  animationBlock:(AHLayoutViewAnimationBlock)animationBlock  completionBlock:(void (^)())completionBlock;
--(void)removeViewsAtIndexes:(NSIndexSet *)indexes animationBlock:(AHLayoutViewAnimationBlock)animationBlock  completionBlock:(void (^)())completionBlock;
--(void) prependNumOfViews:(NSInteger) numOfObjects animationBlock:(void (^)())animationBlock  completionBlock:(void (^)())completionBlock;
+- (void) insertViewAtIndex:(NSUI) index;
+
+- (void) insertViewAtIndex:(NSUI) index  
+           animationBlock:(AHLayoutViewAnimationBlock)animationBlock  
+			 completionBlock:(void (^)())completionBlock;
+
+- (void)removeViewsAtIndexes:(NSIS*)indexes 
+				 animationBlock:(AHLayoutViewAnimationBlock)animationBlock
+				completionBlock:(void (^)())completionBlock;
+				
+- (void) prependNumOfViews:(NSI) numOfObjects 
+			  animationBlock:(void (^)())animationBlock  
+			 completionBlock:(void (^)())completionBlock;
 
 # pragma mark - Scrolling
-
 @end
 
-//////////////////////////////////////////////////////////////
-#pragma mark Protocol AHLayoutDataSource
-//////////////////////////////////////////////////////////////
+
+#pragma mark Protocol AHLayoutDataSource *********
 
 @protocol AHLayoutDataSource <NSObject>
-
-@required
-// Populating subview items
-- (NSUInteger)numberOfViewsInLayout:(AHLayout *)layout;
-- (CGSize)layout:(AHLayout *)layout sizeOfViewAtIndex:(NSUInteger)index;
-- (TUIView *)layout:(AHLayout *)layout viewForIndex:(NSInteger)index;
-
+@required	 // Populating subview items
+- (NSUI)	 numberOfViewsInLayout:(AHLayout *)layout;
+- (CGSZ)	 layout:(AHLayout*)layout sizeOfViewAtIndex:(NSUI)index;
+- (TUIV*) layout:(AHLayout*)layout viewForIndex:(NSI)index;
+@optional
+- (TUIV*) layout:(AHLayout*)layout objectAtIndex:(NSI)index;
 @end
 
 

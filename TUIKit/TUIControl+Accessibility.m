@@ -16,12 +16,12 @@
 
 - (NSArray *)accessibilityActionNames
 {
-    return [self allControlEvents] != 0 ? [NSArray arrayWithObject:NSAccessibilityPressAction] : [super accessibilityActionNames];
+	return [self allControlEvents] != 0 ? [NSArray arrayWithObject:NSAccessibilityPressAction] : [super accessibilityActionNames];
 }
 
 - (NSString *)accessibilityActionDescription:(NSString *)action
 {
-    if([action isEqualToString:NSAccessibilityPressAction]) {
+	if([action isEqualToString:NSAccessibilityPressAction]) {
 		return NSLocalizedString(@"press", @"");
 	} else {
 		return nil;

@@ -32,7 +32,7 @@ TUIAccessibilityTraits TUIAccessibilityTraitUpdatesFrequently = 1 << 10;
 
 - (BOOL)isAccessibilityElement
 {
-    return NO;
+	return NO;
 }
 
 - (void)setIsAccessibilityElement:(BOOL)isElement
@@ -42,7 +42,7 @@ TUIAccessibilityTraits TUIAccessibilityTraitUpdatesFrequently = 1 << 10;
 
 - (NSString *)accessibilityLabel
 {
-    return nil;
+	return nil;
 }
 
 - (void)setAccessibilityLabel:(NSString *)label
@@ -52,7 +52,7 @@ TUIAccessibilityTraits TUIAccessibilityTraitUpdatesFrequently = 1 << 10;
 
 - (NSString *)accessibilityHint
 {
-    return nil;
+	return nil;
 }
 
 - (void)setAccessibilityHint:(NSString *)hint
@@ -62,7 +62,7 @@ TUIAccessibilityTraits TUIAccessibilityTraitUpdatesFrequently = 1 << 10;
 
 - (NSString *)accessibilityValue
 {
-    return nil;
+	return nil;
 }
 
 - (void)setAccessibilityValue:(NSString *)value
@@ -72,7 +72,7 @@ TUIAccessibilityTraits TUIAccessibilityTraitUpdatesFrequently = 1 << 10;
 
 - (TUIAccessibilityTraits)accessibilityTraits
 {
-    return TUIAccessibilityTraitNone;
+	return TUIAccessibilityTraitNone;
 }
 
 - (void)setAccessibilityTraits:(TUIAccessibilityTraits)traits
@@ -82,7 +82,7 @@ TUIAccessibilityTraits TUIAccessibilityTraitUpdatesFrequently = 1 << 10;
 
 - (CGRect)accessibilityFrame
 {
-    return CGRectNull;
+	return CGRectNull;
 }
 
 - (void)setAccessibilityFrame:(CGRect)frame
@@ -97,63 +97,63 @@ TUIAccessibilityTraits TUIAccessibilityTraitUpdatesFrequently = 1 << 10;
 
 - (NSArray *)accessibilityAttributeNames
 {
-    static NSArray *attributes = nil;
-    if(attributes == nil) {
+	static NSArray *attributes = nil;
+	if(attributes == nil) {
 		attributes = [[NSArray alloc] initWithObjects:NSAccessibilityRoleAttribute, NSAccessibilityRoleDescriptionAttribute, NSAccessibilityFocusedAttribute, NSAccessibilityParentAttribute, NSAccessibilityWindowAttribute, NSAccessibilityTopLevelUIElementAttribute, NSAccessibilityPositionAttribute, NSAccessibilitySizeAttribute, nil];
-    }
+	}
 	
-    return attributes;
+	return attributes;
 }
 
 - (id)accessibilityAttributeValue:(NSString *)attribute
 {
-    if([attribute isEqualToString:NSAccessibilityRoleAttribute]) {
+	if([attribute isEqualToString:NSAccessibilityRoleAttribute]) {
 		return @"radioButton";
-    } else if([attribute isEqualToString:NSAccessibilityRoleDescriptionAttribute]) {
+	} else if([attribute isEqualToString:NSAccessibilityRoleDescriptionAttribute]) {
 		return @"radio button"; //NSAccessibilityRoleDescription(role, nil);
-    } else if([attribute isEqualToString:NSAccessibilityFocusedAttribute]) {
+	} else if([attribute isEqualToString:NSAccessibilityFocusedAttribute]) {
 		// Just check if the app thinks we're focused.
 		id focusedElement = [NSApp accessibilityAttributeValue:NSAccessibilityFocusedUIElementAttribute];
 		return [NSNumber numberWithBool:[focusedElement isEqual:self]];
-    } else if([attribute isEqualToString:NSAccessibilityParentAttribute]) {
+	} else if([attribute isEqualToString:NSAccessibilityParentAttribute]) {
 		return nil; //NSAccessibilityUnignoredAncestor(parent);
-    } else if([attribute isEqualToString:NSAccessibilityWindowAttribute]) {
+	} else if([attribute isEqualToString:NSAccessibilityWindowAttribute]) {
 		// We're in the same window as our parent.
 		return nil; //[parent accessibilityAttributeValue:NSAccessibilityWindowAttribute];
-    } else if([attribute isEqualToString:NSAccessibilityTopLevelUIElementAttribute]) {
+	} else if([attribute isEqualToString:NSAccessibilityTopLevelUIElementAttribute]) {
 		// We're in the same top level element as our parent.
 		return nil; //[parent accessibilityAttributeValue:NSAccessibilityTopLevelUIElementAttribute];
-    } else if([attribute isEqualToString:NSAccessibilityPositionAttribute]) {
+	} else if([attribute isEqualToString:NSAccessibilityPositionAttribute]) {
 		return nil; //[NSValue valueWithPoint:[parent fauxUIElementPosition:self]];
-    } else if([attribute isEqualToString:NSAccessibilitySizeAttribute]) {
+	} else if([attribute isEqualToString:NSAccessibilitySizeAttribute]) {
 		return nil; //[NSValue valueWithSize:[parent fauxUIElementSize:self]];
-    } else {
+	} else {
 		return nil;
-    }
+	}
 }
 
 - (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute
 {
-    if([attribute isEqualToString:NSAccessibilityFocusedAttribute]) {
+	if([attribute isEqualToString:NSAccessibilityFocusedAttribute]) {
 		return NO; //[parent isFauxUIElementFocusable:self];
-    } else {
+	} else {
 		return NO;
-    }
+	}
 }
 
 - (void)accessibilitySetValue:(id)value forAttribute:(NSString *)attribute
 {
-    if([attribute isEqualToString:NSAccessibilityFocusedAttribute]) {
+	if([attribute isEqualToString:NSAccessibilityFocusedAttribute]) {
 		//		[parent fauxUIElement:self setFocus:value];
-    }
+	}
 }
 
 - (NSArray *)accessibilityActionNames {
-    return [NSArray array];
+	return [NSArray array];
 }
 
 - (NSString *)accessibilityActionDescription:(NSString *)action {
-    return nil;
+	return nil;
 }
 
 - (void)accessibilityPerformAction:(NSString *)action {
@@ -161,17 +161,17 @@ TUIAccessibilityTraits TUIAccessibilityTraitUpdatesFrequently = 1 << 10;
 }
 
 - (BOOL)accessibilityIsIgnored {
-    return ![self isAccessibilityElement];
+	return ![self isAccessibilityElement];
 }
 
 - (id)accessibilityHitTest:(NSPoint)point
 {
-    return NSAccessibilityUnignoredAncestor(self);
+	return NSAccessibilityUnignoredAncestor(self);
 }
 
 - (id)accessibilityFocusedUIElement
 {
-    return NSAccessibilityUnignoredAncestor(self);
+	return NSAccessibilityUnignoredAncestor(self);
 }
 
 @end

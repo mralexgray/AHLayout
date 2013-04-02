@@ -343,11 +343,11 @@ void GHUIProgressPatternDrawCallback(void *info, CGContextRef context);
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (context == &GHUIProgressBarSetNeedsDisplayObservationContext) {
-        [self setNeedsDisplay];
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
+	if (context == &GHUIProgressBarSetNeedsDisplayObservationContext) {
+		[self setNeedsDisplay];
+	} else {
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
 }
 
 #pragma mark - Pattern Drawing Callbacks

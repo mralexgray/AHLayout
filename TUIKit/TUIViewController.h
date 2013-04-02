@@ -22,7 +22,7 @@
 
 @interface TUIViewController : TUIResponder <NSCopying>
 {
-	TUIView           *_view;
+	TUIView		   *_view;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;

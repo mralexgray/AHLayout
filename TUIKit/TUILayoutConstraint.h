@@ -1,41 +1,41 @@
 @class TUIView;
 
 typedef enum TUILayoutConstraintAttribute : NSUInteger {
-    
-    /*
-                 MaxY
-          -----------------
-          |        |      | Height
-          |        |      |
-          |      MidY     |
-     MinX |------MidX-----| MaxX
-          |        |      |
-          |        |      |
-          ----------------- Width
-                 MinY
-     */
-	TUILayoutConstraintAttributeMinY    = 1,
-	TUILayoutConstraintAttributeMaxY    = 2,
-	TUILayoutConstraintAttributeMinX    = 3,
-	TUILayoutConstraintAttributeMaxX    = 4,
+	
+	/*
+				 MaxY
+		  -----------------
+		  |		|	  | Height
+		  |		|	  |
+		  |	  MidY	 |
+	 MinX |------MidX-----| MaxX
+		  |		|	  |
+		  |		|	  |
+		  ----------------- Width
+				 MinY
+	 */
+	TUILayoutConstraintAttributeMinY	= 1,
+	TUILayoutConstraintAttributeMaxY	= 2,
+	TUILayoutConstraintAttributeMinX	= 3,
+	TUILayoutConstraintAttributeMaxX	= 4,
 	TUILayoutConstraintAttributeWidth   = 5,
 	TUILayoutConstraintAttributeHeight  = 6,
-	TUILayoutConstraintAttributeMidY    = 7,
-	TUILayoutConstraintAttributeMidX    = 8,
+	TUILayoutConstraintAttributeMidY	= 7,
+	TUILayoutConstraintAttributeMidX	= 8,
 	
-    /*
-      MaxXMinY    MidXMaxY     MaxXMaxY
-              -----------------
-              |               |
-              |               |
-      MinXMidY|               |MaxXMidY
-              |               |
-              |               |
-              |               |
-              ----------------- 
-      MinXMinY    MidXMinY     MaxXMinY
-     */
-    
+	/*
+	  MaxXMinY	MidXMaxY	 MaxXMaxY
+			  -----------------
+			  |			   |
+			  |			   |
+	  MinXMidY|			   |MaxXMidY
+			  |			   |
+			  |			   |
+			  |			   |
+			  ----------------- 
+	  MinXMinY	MidXMinY	 MaxXMinY
+	 */
+	
 	TUILayoutConstraintAttributeMinXMinY = 101,
 	TUILayoutConstraintAttributeMinXMidY = 102,
 	TUILayoutConstraintAttributeMinXMaxY = 103,
@@ -82,9 +82,9 @@ typedef CGFloat (^TUILayoutTransformer)(CGFloat);
  [declineButton setLayoutName:@"decline"];
  
  TUILayoutConstraint *constrainLeft = [TUILayoutConstraint constraintWithAttribute:TUILayoutConstraintAttributeMaxX
-                                                                        relativeTo:@"accept" 
-                                                                         attribute:TUILayoutConstraintAttributeMinX
-                                                                            offset:-10];
+																		relativeTo:@"accept" 
+																		 attribute:TUILayoutConstraintAttributeMinX
+																			offset:-10];
  [declineButton addConstraint:constrainLeft];
  ```
  
@@ -100,15 +100,15 @@ typedef CGFloat (^TUILayoutTransformer)(CGFloat);
  [helpButton setLayoutName:@"help"];
  
  [helpButton addConstraint:[TUILayoutConstraint constraintWithAttribute:CHLayoutConstraintAttributeMinY
-                                                             relativeTo:@"accept"
-                                                              attribute:CHLayoutConstraintAttributeMinY
-                                                       blockTransformer:^(CGFloat source) {
-     return fabs((50 * sinf(source))) + 20;
+															 relativeTo:@"accept"
+															  attribute:CHLayoutConstraintAttributeMinY
+													   blockTransformer:^(CGFloat source) {
+	 return fabs((50 * sinf(source))) + 20;
  ]];
  
  [helpButton addConstraint:[TUILayoutConstraint constraintWithAttribute:CHLayoutConstraintAttributeCenter
-                                                             relativeTo:@"superview"
-                                                              attribute:CHLayoutConstraintAttributeFrame]];
+															 relativeTo:@"superview"
+															  attribute:CHLayoutConstraintAttributeFrame]];
  ```
  
  Along with simple scale and offset constraints, you can specify a block
@@ -137,25 +137,25 @@ typedef CGFloat (^TUILayoutTransformer)(CGFloat);
 @property (readonly) NSString *sourceName;
 
 + (id)constraintWithAttribute:(TUILayoutConstraintAttribute)attr
-                   relativeTo:(NSString *)source
-                    attribute:(TUILayoutConstraintAttribute)srcAttr;
+				   relativeTo:(NSString *)source
+					attribute:(TUILayoutConstraintAttribute)srcAttr;
 + (id)constraintWithAttribute:(TUILayoutConstraintAttribute)attr
-                   relativeTo:(NSString *)source
-                    attribute:(TUILayoutConstraintAttribute)srcAttr
-                       offset:(CGFloat)offset;
+				   relativeTo:(NSString *)source
+					attribute:(TUILayoutConstraintAttribute)srcAttr
+					   offset:(CGFloat)offset;
 + (id)constraintWithAttribute:(TUILayoutConstraintAttribute)attr
-                   relativeTo:(NSString *)source
-                    attribute:(TUILayoutConstraintAttribute)srcAttr
-                        scale:(CGFloat)scale
-                       offset:(CGFloat)offset;
+				   relativeTo:(NSString *)source
+					attribute:(TUILayoutConstraintAttribute)srcAttr
+						scale:(CGFloat)scale
+					   offset:(CGFloat)offset;
 
 + (id)constraintWithAttribute:(TUILayoutConstraintAttribute)attr
-                   relativeTo:(NSString *)source
-                    attribute:(TUILayoutConstraintAttribute)srcAttr
-             blockTransformer:(TUILayoutTransformer)transformer;
+				   relativeTo:(NSString *)source
+					attribute:(TUILayoutConstraintAttribute)srcAttr
+			 blockTransformer:(TUILayoutTransformer)transformer;
 + (id)constraintWithAttribute:(TUILayoutConstraintAttribute)attr
-                   relativeTo:(NSString *)source
-                    attribute:(TUILayoutConstraintAttribute)srcAttr
-             valueTransformer:(NSValueTransformer *)transformer;
+				   relativeTo:(NSString *)source
+					attribute:(TUILayoutConstraintAttribute)srcAttr
+			 valueTransformer:(NSValueTransformer *)transformer;
 
 @end

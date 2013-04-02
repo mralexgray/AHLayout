@@ -23,13 +23,13 @@ extern NSString * const TUIViewWindow;
 extern NSString * const TUIViewFrameDidChangeNotification;
 
 typedef enum TUIViewAutoresizing : NSUInteger {
-	TUIViewAutoresizingNone                 = 0,
+	TUIViewAutoresizingNone				 = 0,
 	TUIViewAutoresizingFlexibleLeftMargin   = 1 << 0,
-	TUIViewAutoresizingFlexibleWidth        = 1 << 1,
+	TUIViewAutoresizingFlexibleWidth		= 1 << 1,
 	TUIViewAutoresizingFlexibleRightMargin  = 1 << 2,
 	TUIViewAutoresizingFlexibleBottomMargin = 1 << 3,
-	TUIViewAutoresizingFlexibleHeight       = 1 << 4,
-	TUIViewAutoresizingFlexibleTopMargin    = 1 << 5,
+	TUIViewAutoresizingFlexibleHeight	   = 1 << 4,
+	TUIViewAutoresizingFlexibleTopMargin	= 1 << 5,
 } TUIViewAutoresizing;
 #define TUIViewAutoresizingFlexibleSize (TUIViewAutoresizingFlexibleWidth | TUIViewAutoresizingFlexibleHeight)
 
@@ -45,18 +45,18 @@ typedef enum TUIViewAnimationTransition : NSUInteger {
 } TUIViewAnimationTransition;
 
 typedef enum TUIViewContentMode : NSUInteger {
-    TUIViewContentModeCenter,
-    TUIViewContentModeTop,
-    TUIViewContentModeBottom,
-    TUIViewContentModeLeft,
-    TUIViewContentModeRight,
-    TUIViewContentModeTopLeft,
-    TUIViewContentModeTopRight,
-    TUIViewContentModeBottomLeft,
-    TUIViewContentModeBottomRight,
+	TUIViewContentModeCenter,
+	TUIViewContentModeTop,
+	TUIViewContentModeBottom,
+	TUIViewContentModeLeft,
+	TUIViewContentModeRight,
+	TUIViewContentModeTopLeft,
+	TUIViewContentModeTopRight,
+	TUIViewContentModeBottomLeft,
+	TUIViewContentModeBottomRight,
 	TUIViewContentModeScaleToFill,
-    TUIViewContentModeScaleAspectFit,
-    TUIViewContentModeScaleAspectFill,
+	TUIViewContentModeScaleAspectFit,
+	TUIViewContentModeScaleAspectFill,
 } TUIViewContentMode;
 
 @class TUINSView;
@@ -268,7 +268,7 @@ extern CGRect(^TUIViewCenteredLayout)(TUIView*);
  @returns 'best' size to fit given size. does not actually resize view. Default is return existing view size
  */
 - (CGSize)sizeThatFits:(CGSize)size;
-- (void)sizeToFit;                       // calls sizeThatFits: with current view bounds and changes bounds size.
+- (void)sizeToFit;					   // calls sizeThatFits: with current view bounds and changes bounds size.
 
 - (NSArray *)sortedSubviews;
 
@@ -433,13 +433,13 @@ extern CGRect(^TUIViewCenteredLayout)(TUIView*);
  */
 + (void)setAnimationDelay:(NSTimeInterval)delay;
 
-+ (void)setAnimationCurve:(TUIViewAnimationCurve)curve;              // default = UIViewAnimationCurveEaseInOut
-+ (void)setAnimationRepeatCount:(float)repeatCount;                 // default = 0.0.  May be fractional
-+ (void)setAnimationRepeatAutoreverses:(BOOL)repeatAutoreverses;    // default = NO. used if repeat count is non-zero
++ (void)setAnimationCurve:(TUIViewAnimationCurve)curve;			  // default = UIViewAnimationCurveEaseInOut
++ (void)setAnimationRepeatCount:(float)repeatCount;				 // default = 0.0.  May be fractional
++ (void)setAnimationRepeatAutoreverses:(BOOL)repeatAutoreverses;	// default = NO. used if repeat count is non-zero
 + (void)setAnimationIsAdditive:(BOOL)additive;
 
 + (void)setAnimationsEnabled:(BOOL)enabled block:(void(^)(void))block;
-+ (void)setAnimationsEnabled:(BOOL)enabled;                         // ignore any attribute changes while set.
++ (void)setAnimationsEnabled:(BOOL)enabled;						 // ignore any attribute changes while set.
 + (BOOL)areAnimationsEnabled;
 
 /**

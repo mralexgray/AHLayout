@@ -32,8 +32,8 @@
 // Returns a bezier path with a rounded rectangle in the given
 // rect with the selected corners rounded at the given corner radii.
 + (NSBezierPath *)tui_bezierPathWithRoundedRect:(CGRect)rect
-                              byRoundingCorners:(TUIRectCorner)corners
-                                    cornerRadii:(CGSize)cornerRadii;
+							  byRoundingCorners:(TUIRectCorner)corners
+									cornerRadii:(CGSize)cornerRadii;
 
 // Strokes the bezier path on the inside, instead of the standard outside stroke.
 - (void)tui_strokeInside;

@@ -68,9 +68,9 @@
 - (id)init {
 	if((self = [super init])) {
 		[[NSNotificationCenter defaultCenter] addObserver:self
-	                                             selector:@selector(frameChanged:)
-		                                             name:TUIViewFrameDidChangeNotification
-		                                           object:nil];
+												 selector:@selector(frameChanged:)
+													 name:TUIViewFrameDidChangeNotification
+												   object:nil];
 		_processingChanges = NO;
 		
 		_constraints = [NSMapTable mapTableWithWeakToStrongObjects];

@@ -126,11 +126,11 @@
   float newProp = newSize.width / newSize.height;  
   CGRect cropRect;
   if (oldProp > newProp) {
-    cropRect.size.height = s.height;
-    cropRect.size.width = s.height * newProp;
+	cropRect.size.height = s.height;
+	cropRect.size.width = s.height * newProp;
   } else {
-    cropRect.size.width = s.width;
-    cropRect.size.height = s.width / newProp;
+	cropRect.size.width = s.width;
+	cropRect.size.height = s.width / newProp;
   }
   cropRect.origin = CGPointMake((s.width - cropRect.size.width) / 2.0, (s.height - cropRect.size.height) / 2.0);
   return [[self tui_crop:cropRect] tui_scale:newSize];

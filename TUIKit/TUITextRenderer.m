@@ -201,7 +201,7 @@ NSString *const TUITextRendererDidResignFirstResponder = @"TUITextRendererDidRes
 }
 
 - (NSAttributedString*)drawingAttributedString {
-    return attributedString;
+	return attributedString;
 }
 
 - (NSRange)selectedRange

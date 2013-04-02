@@ -133,7 +133,7 @@ static pthread_key_t TUICurrentContextScaleFactorTLSKey;
 	[[TUILayoutManager sharedLayoutManager] setLayoutName:nil forView:self];
 
 	if (self.nsView.trackingView == self) self.nsView.trackingView = nil;
-    
+	
 	[self setTextRenderers:nil];
 	_layer.delegate = nil;
 	if(_context.context) {
@@ -603,7 +603,7 @@ static void TUISetCurrentContextScaleFactor(CGFloat s)
 {
 	self.layer.frame = f;
 	[self.subviews makeObjectsPerformSelector:@selector(ancestorDidLayout)];
-    [[NSNotificationCenter defaultCenter] postNotificationName:TUIViewFrameDidChangeNotification object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:TUIViewFrameDidChangeNotification object:self];
 }
 
 - (CGRect)bounds

@@ -20,9 +20,9 @@
 @class TUIViewController;
 
 typedef enum TUIPopoverViewControllerBehaviour : NSUInteger {
-    TUIPopoverViewControllerBehaviourApplicationDefined,
-    TUIPopoverViewControllerBehaviourTransient,
-    TUIPopoverViewControllerBehaviourSemiTransient //Currently not supported, here for forwards compatibility purposes
+	TUIPopoverViewControllerBehaviourApplicationDefined,
+	TUIPopoverViewControllerBehaviourTransient,
+	TUIPopoverViewControllerBehaviourSemiTransient //Currently not supported, here for forwards compatibility purposes
 } TUIPopoverViewControllerBehaviour;
 
 typedef void (^TUIPopoverDelegateBlock)(TUIPopover *popover);
@@ -66,5 +66,5 @@ typedef void (^TUIPopoverDelegateBlock)(TUIPopover *popover);
 //Used in the default implementation
 @property (nonatomic, strong) NSColor *strokeColor;
 @property (nonatomic, strong) NSColor *fillColor;
-    
+	
 @end

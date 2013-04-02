@@ -44,8 +44,8 @@
 	[super drawRect:rect];
 	if (_image == nil)
 		return;
-    
-    [_image drawInRect:rect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+	
+	[_image drawInRect:rect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {

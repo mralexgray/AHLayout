@@ -35,8 +35,8 @@ static inline TUIEdgeInsets TUIEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat
 
 // Insets and returns the given CGRect by the given TUIEdgeInsets.
 static inline CGRect TUIEdgeInsetsInsetRect(CGRect rect, TUIEdgeInsets insets) {
-	rect.origin.x    += insets.left;
-	rect.origin.y    += insets.top;
+	rect.origin.x	+= insets.left;
+	rect.origin.y	+= insets.top;
 	rect.size.width  -= (insets.left + insets.right);
 	rect.size.height -= (insets.top  + insets.bottom);
 	return rect;
@@ -44,7 +44,7 @@ static inline CGRect TUIEdgeInsetsInsetRect(CGRect rect, TUIEdgeInsets insets) {
 
 // Checks member-to-member equality of two TUIEdgeInsets structures.
 static inline BOOL TUIEdgeInsetsEqualToEdgeInsets(TUIEdgeInsets insets1, TUIEdgeInsets insets2) {
-    return (insets1.left == insets2.left &&
+	return (insets1.left == insets2.left &&
 			insets1.top == insets2.top &&
 			insets1.right == insets2.right &&
 			insets1.bottom == insets2.bottom);

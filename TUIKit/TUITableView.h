@@ -17,13 +17,13 @@
 #import "TUIScrollView.h"
 
 typedef enum TUITableViewStyle : NSUInteger {
-	TUITableViewStylePlain,              // regular table view
+	TUITableViewStylePlain,			  // regular table view
 	TUITableViewStyleGrouped, // grouped table view—headers stick to the top of the table view and scroll with it
 } TUITableViewStyle;
 
 typedef enum TUITableViewScrollPosition : NSUInteger {
-	TUITableViewScrollPositionNone,        
-	TUITableViewScrollPositionTop,    
+	TUITableViewScrollPositionNone,		
+	TUITableViewScrollPositionTop,	
 	TUITableViewScrollPositionMiddle,   
 	TUITableViewScrollPositionBottom,
 	TUITableViewScrollPositionToVisible, // currently the only supported arg
@@ -31,7 +31,7 @@ typedef enum TUITableViewScrollPosition : NSUInteger {
 
 typedef enum TUITableViewInsertionMethod : NSUInteger {
   TUITableViewInsertionMethodBeforeIndex  = NSOrderedAscending,
-  TUITableViewInsertionMethodAtIndex      = NSOrderedSame,
+  TUITableViewInsertionMethodAtIndex	  = NSOrderedSame,
   TUITableViewInsertionMethodAfterIndex   = NSOrderedDescending
 } TUITableViewInsertionMethod;
 
@@ -65,32 +65,32 @@ typedef enum TUITableViewInsertionMethod : NSUInteger {
 
 @interface TUITableView : TUIScrollView
 {
-	TUITableViewStyle             _style;
+	TUITableViewStyle			 _style;
 	__unsafe_unretained id <TUITableViewDataSource>	_dataSource; // weak
-	NSArray                     * _sectionInfo;
+	NSArray					 * _sectionInfo;
 	
-	TUIView                     * _pullDownView;
+	TUIView					 * _pullDownView;
 	
-	CGSize                        _lastSize;
-	CGFloat                       _contentHeight;
+	CGSize						_lastSize;
+	CGFloat					   _contentHeight;
 	
-	NSMutableIndexSet           * _visibleSectionHeaders;
-	NSMutableDictionary         * _visibleItems;
-	NSMutableDictionary         * _reusableTableCells;
+	NSMutableIndexSet		   * _visibleSectionHeaders;
+	NSMutableDictionary		 * _visibleItems;
+	NSMutableDictionary		 * _reusableTableCells;
 	
-	NSIndexPath            * _selectedIndexPath;
-	NSIndexPath            * _indexPathShouldBeFirstResponder;
-	NSInteger                     _futureMakeFirstResponderToken;
-	NSIndexPath            * _keepVisibleIndexPathForReload;
-	CGFloat                       _relativeOffsetForReload;
+	NSIndexPath			* _selectedIndexPath;
+	NSIndexPath			* _indexPathShouldBeFirstResponder;
+	NSInteger					 _futureMakeFirstResponderToken;
+	NSIndexPath			* _keepVisibleIndexPathForReload;
+	CGFloat					   _relativeOffsetForReload;
 	
 	// drag-to-reorder state
-  TUITableViewCell            * _dragToReorderCell;
-  CGPoint                       _currentDragToReorderLocation;
-  CGPoint                       _currentDragToReorderMouseOffset;
-  NSIndexPath            * _currentDragToReorderIndexPath;
+  TUITableViewCell			* _dragToReorderCell;
+  CGPoint					   _currentDragToReorderLocation;
+  CGPoint					   _currentDragToReorderMouseOffset;
+  NSIndexPath			* _currentDragToReorderIndexPath;
   TUITableViewInsertionMethod   _currentDragToReorderInsertionMethod;
-  NSIndexPath            * _previousDragToReorderIndexPath;
+  NSIndexPath			* _previousDragToReorderIndexPath;
   TUITableViewInsertionMethod   _previousDragToReorderInsertionMethod;
   
 	struct {
@@ -106,12 +106,12 @@ typedef enum TUITableViewInsertionMethod : NSUInteger {
 	
 }
 
-- (id)initWithFrame:(CGRect)frame style:(TUITableViewStyle)style;                // must specify style at creation. -initWithFrame: calls this with UITableViewStylePlain
+- (id)initWithFrame:(CGRect)frame style:(TUITableViewStyle)style;				// must specify style at creation. -initWithFrame: calls this with UITableViewStylePlain
 
 @property (nonatomic,unsafe_unretained) id <TUITableViewDataSource>  dataSource;
-@property (nonatomic,unsafe_unretained) id <TUITableViewDelegate>    delegate;
+@property (nonatomic,unsafe_unretained) id <TUITableViewDelegate>	delegate;
 
-@property (readwrite, assign) BOOL                        animateSelectionChanges;
+@property (readwrite, assign) BOOL						animateSelectionChanges;
 @property (nonatomic, assign) BOOL maintainContentOffsetAfterReload;
 
 - (void)reloadData;
@@ -133,8 +133,8 @@ typedef enum TUITableViewInsertionMethod : NSUInteger {
 
 - (NSIndexSet *)indexesOfSectionsInRect:(CGRect)rect;
 - (NSIndexSet *)indexesOfSectionHeadersInRect:(CGRect)rect;
-- (NSIndexPath *)indexPathForCell:(TUITableViewCell *)cell;                      // returns nil if cell is not visible
-- (NSArray *)indexPathsForRowsInRect:(CGRect)rect;                                    // returns nil if rect not valid
+- (NSIndexPath *)indexPathForCell:(TUITableViewCell *)cell;					  // returns nil if cell is not visible
+- (NSArray *)indexPathsForRowsInRect:(CGRect)rect;									// returns nil if rect not valid
 - (NSIndexPath *)indexPathForRowAtPoint:(CGPoint)point;
 - (NSIndexPath *)indexPathForRowAtVerticalOffset:(CGFloat)offset;
 - (NSInteger)indexOfSectionWithHeaderAtPoint:(CGPoint)point;
@@ -145,14 +145,14 @@ typedef enum TUITableViewInsertionMethod : NSUInteger {
 - (void)enumerateIndexPathsFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath withOptions:(NSEnumerationOptions)options usingBlock:(void (^)(NSIndexPath *indexPath, BOOL *stop))block;
 
 - (TUIView *)headerViewForSection:(NSInteger)section;
-- (TUITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath;            // returns nil if cell is not visible or index path is out of range
+- (TUITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath;			// returns nil if cell is not visible or index path is out of range
 - (NSArray *)visibleCells; // no particular order
 - (NSArray *)sortedVisibleCells; // top to bottom
 - (NSArray *)indexPathsForVisibleRows;
 
 - (void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(TUITableViewScrollPosition)scrollPosition animated:(BOOL)animated;
 
-- (NSIndexPath *)indexPathForSelectedRow;                                       // return nil or index path representing section and row of selection.
+- (NSIndexPath *)indexPathForSelectedRow;									   // return nil or index path representing section and row of selection.
 - (NSIndexPath *)indexPathForFirstRow;
 - (NSIndexPath *)indexPathForLastRow;
 

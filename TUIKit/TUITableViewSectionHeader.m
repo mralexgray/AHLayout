@@ -35,8 +35,8 @@
  */
 -(void)setPinnedToViewport:(BOOL)pinned {
   if(_isPinnedToViewport != pinned){
-    if(pinned) [self headerWillBecomePinned];
-    else [self headerWillBecomeUnpinned];
+	if(pinned) [self headerWillBecomePinned];
+	else [self headerWillBecomeUnpinned];
   }
   _isPinnedToViewport = pinned;
 }

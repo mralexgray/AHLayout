@@ -1,119 +1,97 @@
-//
 //  ExampleColorView.m
 //  AHLayout
-//
 //  Created by John Wright on 11/27/11.
-//  Copyright (c) 2011 AirHeart. All rights reserved.
-//
+// CPright (c) 2011 AirHeart. All rights reserved.
 
 #import "ExampleView.h"
+#import <AtoZ/AtoZ.h>
 
+@interface ExampleView ()
+@property NSI objectIndex;
+@property TUITextRenderer *textRenderer;
+@property NSAS *attributedString;
+@property CGSZ originalSize;
+@end
 
-@implementation ExampleView {
-    NSInteger objectIndex;
-    TUITextRenderer *textRenderer;
-    NSAttributedString *attributedString;
-    CGSize originalSize;
+@implementation ExampleView
+@synthesize expanded, dictionary, selected, textRenderer, originalSize;
+
+- (id)initWithFrame:(CGR)frame {
+	if (self != [super initWithFrame:frame]) return nil;
+//	self.opaque = YES;
+	self.textRenderers = @[textRenderer = TUITextRenderer.new];
+//	self.clipsToBounds = YES;
+	self.backgroundColor = [NSColor lightGrayColor];
+	return self;
 }
 
-@synthesize expanded;
-@synthesize dictionary;
-@synthesize selected;
-
-- (id)initWithFrame:(CGRect)frame {
-    if ((self = [super initWithFrame:frame])) {
-        //self.opaque = YES;
-        textRenderer = [[TUITextRenderer alloc] init];
-		self.textRenderers = [NSArray arrayWithObjects:textRenderer, nil];
-        //self.clipsToBounds = YES;
-        self.backgroundColor = [NSColor lightGrayColor];
-    }
-    return self;
-}
-
--(AHLayout*) parentLayout {
-    return (AHLayout*) self.superview;
-}
-
--(void) setTag:(NSInteger) tag {
-    [super setTag:tag];
-    textRenderer.attributedString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld", self.tag]];
-}
-
--(NSMenu*) menuForEvent:(NSEvent *)event {
-    NSMenu *menu = [[NSMenu alloc] init];
-    
-    NSMenuItem *item2 = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert Above",nil) action:@selector(insertObject) keyEquivalent:@""];
-    item2.target = self;
-    [menu addItem:item2];
-    item2 = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert Below",nil) action:@selector(insertObjectBelow) keyEquivalent:@""];
-    item2.target = self;
-    [menu addItem:item2];
-    NSMenuItem *item21 = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert at top",nil) action:@selector(prepend) keyEquivalent:@""];
-    item21.target = self;
-    [menu addItem:item21];
-
-    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Remove",nil) action:@selector(remove:) keyEquivalent:@""];
-    item.target =self;
-    [menu addItem:item];
-    NSMenuItem *item1 = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Toggle Expand To Fill",nil) action:@selector(toggleExpanded) keyEquivalent:@""];
-    item1.target = self;
-    [menu addItem:item1];
-    return menu;
-}
-
-
--(void) toggleExpanded {
-    CGSize targetSize;
-    if (self.parentLayout.typeOfLayout == AHLayoutHorizontal) {
-        CGFloat width = expanded  ? originalSize.width : self.parentLayout.bounds.size.width;
-        targetSize = CGSizeMake(width, self.bounds.size.height);
-    } else {
-        CGFloat height = expanded  ? originalSize.height : self.parentLayout.bounds.size.height;
-        targetSize = CGSizeMake(self.bounds.size.width, height);
-    }
-    [self.parentLayout beginUpdates];
-    [self.parentLayout resizeViewAtIndex:self.tag toSize:targetSize animationBlock:nil  completionBlock:^{
-        expanded = !expanded;
-    }];
-    [self.parentLayout endUpdates];
-}
-
--(void) insertObject{
-    [_objects addObject:[NSMutableDictionary dictionary]];
-    [self.parentLayout insertViewAtIndex:self.tag];
-}
-
--(void) insertObjectBelow{
-    [_objects addObject:[NSMutableDictionary dictionary]];
-    [self.parentLayout insertViewAtIndex:self.tag-1];
-}
-
--(void) prepend {
-    [_objects addObject:[NSMutableDictionary dictionary]];
-    [self.parentLayout prependNumOfViews:1 animationBlock:nil completionBlock:nil];
-}
-
--(IBAction)remove:(id)sender {
-    [_objects removeObjectAtIndex:self.tag];
-    [self.parentLayout removeViewsAtIndexes:[NSIndexSet indexSetWithIndex:self.tag ] animationBlock:nil completionBlock:nil ];
-}
-
-- (void)drawRect:(CGRect)rect
-{
-	CGRect b = self.bounds;
-	CGContextRef ctx = TUIGraphicsGetCurrentContext();
-    
-    originalSize = CGSizeEqualToSize(CGSizeZero, originalSize) ? self.bounds.size : originalSize;
+- (AHLayout*) parentLayout 		 {		return (AHLayout*) self.superview;	}
 	
+- (void) setTag:(NSI) tag 	 	 {
+	[super setTag:tag];
+	NSS* name = self.objects[tag][@"color"][@"name"];
+	textRenderer.attributedString = [NSAttributedString.alloc initWithString: name ?: NSS.randomDicksonism];//self.objects[@"color"]];// $(@"%ld", self.tag)];
+}
+
+
+- (NSMenu*) menuForEvent:(NSE*)event 	
+{
+	__block NSMenu *menu = NSMenu.new;
+	[@{         @"Insert Above" : @"insertObject", 	@"Insert Below":@"insertObjectBelow", 
+		         @"Insert at top": @"prepend", 			     @"Remove" : @"remove:", 
+		@"Toggle Expand To Fill" : @"toggleExpanded" } each:^(id k, id v)  {
+		NSMI *i = 	  [NSMenuItem.alloc  initWithTitle:NSLocalizedString(k, nil) 
+						       action:NSSelectorFromString(v) keyEquivalent:@""];  
+							 i.target = self; 							 [menu addItem:i];
+	}]; return menu;
+}
+- (void) toggleExpanded 					
+{
+	__block CGSize tSize; __block CGF w, h;
+	self.parentLayout.typeOfLayout == AHLayoutHorizontal ? ^{
+				     w = expanded  ? originalSize.width : self.parentLayout.width;
+			    tSize = 	   (CGS)  { w, self.height };
+	}() : ^{		  h = expanded  ? originalSize.height : self.parentLayout.height;
+		       tSize = 		(CGS)  { self.width, h  };
+	}();
+	[self.parentLayout beginUpdates];
+	[self.parentLayout resizeViewAtIndex:self.tag toSize:tSize animationBlock:nil  completionBlock:^{ 	expanded = !expanded;	 }];
+	[self.parentLayout endUpdates];
+}
+- (void) insertObject				{	[_objects addObject:NSMD.new];
+											[self.parentLayout insertViewAtIndex:self.tag];
+}
+- (void) insertObjectBelow 		{	[_objects addObject:NSMD.new];
+											[self.parentLayout insertViewAtIndex:self.tag-1];
+}
+- (void) prepend 					{	[_objects addObject:NSMD.new];
+											[self.parentLayout prependNumOfViews:1 animationBlock:nil completionBlock:nil];
+}
+- (IBAction)remove:(id)sender 	{	[_objects removeObjectAtIndex:self.tag];
+											[self.parentLayout removeViewsAtIndexes:[NSIndexSet indexSetWithIndex:self.tag ]
+											                         animationBlock:nil           completionBlock:nil ];
+}
+
+- (void)drawRect:(CGR)rect
+{
+	CGR b 		  = self.bounds;
+	CGCREF ctx = TUIGraphicsGetCurrentContext();
+	originalSize = CGSizeEqualToSize(CGSizeZero, originalSize) ? b.size : originalSize;
+	LOGWARN(@"DRAWRECT: %@", AZString(b));
 	if(self.selected) {
+		NSLog(@"iam selected!");
 		// selected background
-		CGContextSetRGBFillColor(ctx, .87, .87, .87, 1);
-		CGContextFillRect(ctx, b);
+//		CGContextSetRGBFillColor(ctx, .87, .87, .87, 1);
+//		CGContextFillRect(ctx, b);
+		NSBP *path = [NSBP bezierPathWithRect:b];
+		[path strokeWithColor:BLACK andWidth:10];
+		[path fillWithColor:CHECKERS];
+		[self.layer addAnimation:[CAA shakeAnimation]];
 	} else {
 		// light gray background
-		CGContextSetRGBFillColor(ctx, .97, .97, .97, 1);
-		CGContextFillRect(ctx, b);
+//		CGContextSetRGBFillColor(ctx, .7, .7, .7, 1);
+//		CGContextFillRect(ctx, b);
+		NSRectFillWithColor(b, self.objects[self.tag][@"color"][@"color"] ?: GRAY4);
 		
 		// emboss
 		CGContextSetRGBFillColor(ctx, 1, 1, 1, 0.9); // light at the top
@@ -130,4 +108,27 @@
 }
 
 
+- (void)mouseDown:(NSEvent *)event
+{
+	[super mouseDown:event]; // always call super when overriding mouseXXX: methods - lots of plumbing happens in TUIView
+	self.selected = YES;
+	[self setNeedsDisplay];
+}
+
+- (void)mouseUp:(NSEvent *)event
+{
+	[super mouseUp:event];
+
+	// rather than a simple -setNeedsDisplay, let's fade it back out
+	[TUIView animateWithDuration:0.5 animations:^{
+
+	self.selected = NO;
+	[self redraw]; // -redraw forces a .contents update immediately based on drawRect, and it happens inside an animation block, so CoreAnimation gives us a cross-fade for free
+	}];
+	
+	if([self eventInside:event]) { // only perform the action if the mouse up happened inside our bounds - ignores mouse down, drag-out, mouse up
+		NSLog(@"did seleted %@", self);
+//		[[self tabBar].delegate tabBar:[self tabBar] didSelectTab:self.tag];
+	}
+}
 @end

@@ -72,9 +72,9 @@ typedef enum TUIScrollViewIndicator : NSUInteger {
 
 @interface TUIScrollView : TUIView
 {
-  CGPoint         _unroundedContentOffset;
-  CGSize          _contentSize;
-  CGSize          resizeKnobSize;
+  CGPoint		 _unroundedContentOffset;
+  CGSize		  _contentSize;
+  CGSize		  resizeKnobSize;
   TUIEdgeInsets   _contentInset;
 	
 	__unsafe_unretained id _delegate;
@@ -108,10 +108,10 @@ typedef enum TUIScrollViewIndicator : NSUInteger {
 	} _bounce;
 	
   struct {
-    float x;
-    float y;
-    BOOL  xPulling;
-    BOOL  yPulling;
+	float x;
+	float y;
+	BOOL  xPulling;
+	BOOL  yPulling;
   } _pull;
 	
 	CGPoint  _dragScrollLocation;

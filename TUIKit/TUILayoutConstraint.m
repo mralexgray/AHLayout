@@ -15,10 +15,10 @@
 @property (nonatomic, copy) NSValueTransformer *valueTransformer;
 
 - (id)initWithAttribute:(TUILayoutConstraintAttribute)attr
-             relativeTo:(NSString *)srcLayer
-              attribute:(TUILayoutConstraintAttribute)srcAttr
-                  scale:(CGFloat)scale
-                 offset:(CGFloat)offset;
+			 relativeTo:(NSString *)srcLayer
+			  attribute:(TUILayoutConstraintAttribute)srcAttr
+				  scale:(CGFloat)scale
+				 offset:(CGFloat)offset;
 
 - (CGFloat)transformValue:(CGFloat)original;
 - (void)applyToTargetView:(TUIView *)target;
@@ -45,47 +45,47 @@
 @synthesize valueTransformer = _valueTransformer;
 
 + (id)constraintWithAttribute:(TUILayoutConstraintAttribute)attr
-                   relativeTo:(NSString *)srcLayer
-                    attribute:(TUILayoutConstraintAttribute)srcAttr {
+				   relativeTo:(NSString *)srcLayer
+					attribute:(TUILayoutConstraintAttribute)srcAttr {
 	return [self constraintWithAttribute:attr relativeTo:srcLayer attribute:srcAttr scale:1.0f offset:0.0f];
 }
 
 + (id)constraintWithAttribute:(TUILayoutConstraintAttribute)attr
-                   relativeTo:(NSString *)srcLayer
-                    attribute:(TUILayoutConstraintAttribute)srcAttr
-                       offset:(CGFloat)offset {
+				   relativeTo:(NSString *)srcLayer
+					attribute:(TUILayoutConstraintAttribute)srcAttr
+					   offset:(CGFloat)offset {
 	return [self constraintWithAttribute:attr relativeTo:srcLayer attribute:srcAttr scale:1.0f offset:offset];
 }
 
 + (id)constraintWithAttribute:(TUILayoutConstraintAttribute)attr
-                   relativeTo:(NSString *)source
-                    attribute:(TUILayoutConstraintAttribute)srcAttr
-                        scale:(CGFloat)scale
-                       offset:(CGFloat)offset {
+				   relativeTo:(NSString *)source
+					attribute:(TUILayoutConstraintAttribute)srcAttr
+						scale:(CGFloat)scale
+					   offset:(CGFloat)offset {
 	return [[TUILayoutConstraint alloc] initWithAttribute:attr relativeTo:source attribute:srcAttr scale:scale offset:offset];
 }
 
 + (id)constraintWithAttribute:(TUILayoutConstraintAttribute)attr
-                    relativeTo:(NSString *)srcLayer
-                    attribute:(TUILayoutConstraintAttribute)srcAttr
-             blockTransformer:(TUILayoutTransformer)transformer {
+					relativeTo:(NSString *)srcLayer
+					attribute:(TUILayoutConstraintAttribute)srcAttr
+			 blockTransformer:(TUILayoutTransformer)transformer {
 	TUILayoutBlockValueTransformer *t = [TUILayoutBlockValueTransformer transformerWithBlock:transformer];
 	return [self constraintWithAttribute:attr relativeTo:srcLayer attribute:srcAttr valueTransformer:t];
 }
 
 + (id)constraintWithAttribute:(TUILayoutConstraintAttribute)attr
-                   relativeTo:(NSString *)srcLayer
-                    attribute:(TUILayoutConstraintAttribute)srcAttr
-             valueTransformer:(NSValueTransformer *)transformer {
+				   relativeTo:(NSString *)srcLayer
+					attribute:(TUILayoutConstraintAttribute)srcAttr
+			 valueTransformer:(NSValueTransformer *)transformer {
 	return [[self alloc] initWithAttribute:attr relativeTo:srcLayer attribute:srcAttr valueTransformer:transformer];
 }
 
 - (id)initWithAttribute:(TUILayoutConstraintAttribute)attr
-             relativeTo:(NSString *)srcLayer
-              attribute:(TUILayoutConstraintAttribute)srcAttr
-                  scale:(CGFloat)scale
-                 offset:(CGFloat)offset {
-    
+			 relativeTo:(NSString *)srcLayer
+			  attribute:(TUILayoutConstraintAttribute)srcAttr
+				  scale:(CGFloat)scale
+				 offset:(CGFloat)offset {
+	
 	double attributeRange = floor(log10(attr));
 	double sourceAttributeRange = floor(log10(srcAttr));
 	
@@ -104,10 +104,10 @@
 }
 
 - (id)initWithAttribute:(TUILayoutConstraintAttribute)attr
-             relativeTo:(NSString *)srcLayer
-              attribute:(TUILayoutConstraintAttribute)srcAttr
-       valueTransformer:(NSValueTransformer *)transformer {
-    
+			 relativeTo:(NSString *)srcLayer
+			  attribute:(TUILayoutConstraintAttribute)srcAttr
+	   valueTransformer:(NSValueTransformer *)transformer {
+	
 	double attributeRange = floor(log10(attr));
 	double sourceAttributeRange = floor(log10(srcAttr));
 	
