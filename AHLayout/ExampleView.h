@@ -7,16 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "TUIKit.h"
-#import "AHLayout.h"
 #import "AHAppDelegate.h"
 #import <AtoZ/AtoZ.h>
 
 @interface ExampleView : TUIView
 
-@property (NATOM) 		BOOL	expanded;
-@property (NATOM) 		NSMD *dictionary;
-@property (NATOM) 		BOOL 	selected;
-@property (NATOM,WK) NSMA  *objects;
+@property (NATOM) 		BOOL	expanded, selected;;
+@property (NATOM) 		NSMD  *dictionary;
+@property (NATOM,WK) 	NSMA  *objects;
 
 @end

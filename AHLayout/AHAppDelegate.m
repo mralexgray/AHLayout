@@ -7,7 +7,7 @@
 //
 
 #import "AHAppDelegate.h"
-#import "AHLayout.h"
+//#import "AHLayout.h"
 #import "ExampleView.h"
 #import <AtoZ/AtoZ.h>
 
@@ -23,20 +23,12 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+	self.window.contentView = [TUINSView.alloc initWithFrame:_window.contentRect];
+	TUIV*v = [TUIView.alloc initWithFrame:_window.contentRect];
 
-	TUINSView *containerView = [TUINSView.alloc initWithFrame:[_window.contentView frame]];
-	self.window.contentView = containerView;
-	CGRect b = [self.window.contentView frame];
-	
-	TUIV*v = [TUIView.alloc initWithFrame:b];
-//	v.backgroundColor = [NSColor grayColor];
-	
-	CGRect horizFrame, vertFrame;  horizFrame = vertFrame = b;
-	horizFrame.origin.y 	  = b.size.height - 100;
-	horizFrame.size.height = 100;
-	[v addSubview:_horizontalLayout		= [AHLayout.alloc initWithFrame:horizFrame]];
+	[v addSubview:_horizontalLayout		= [AHLayout.alloc initWithFrame:AZUpperEdge(_window.bounds, 100)]];
 	_horizontalLayout.typeOfLayout 		= AHLayoutHorizontal;
-	_horizontalLayout.bgC				 		= LINEN;
+	_horizontalLayout.bgC				 	= LINEN;
 	_horizontalLayout.arMASK 		 		= TUIViewAutoresizingFlexibleBottomMargin | TUIViewAutoresizingFlexibleWidth;
 	_horizontalLayout.dataSource 	      = self;
 	_horizontalLayout.clipsToBounds     = YES;
@@ -44,33 +36,31 @@
 	_horizontalLayout.viewClass 			= ExampleView.class;
 //	_horizontalLayout];
 	
-	vertFrame.size.height -= 100;
-	[v addSubview:_verticalLayout 		= [AHLayout.alloc initWithFrame:vertFrame]];
+
+	[v addSubview:_verticalLayout 		= [AHLayout.alloc initWithFrame:AZRectTrimmedOnTop(_window.bounds, 100)]];
 	_verticalLayout.backgroundColor 		= RED;
-	_verticalLayout.autoresizingMask 		= TUIViewAutoresizingFlexibleSize;
+	_verticalLayout.autoresizingMask 	= TUIViewAutoresizingFlexibleSize;
 	_verticalLayout.dataSource 			= self;
 	_verticalLayout.clipsToBounds 		= YES;
 	_verticalLayout.viewClass 				= ExampleView.class;
 	
-	containerView.rootView = v;
+	((TUINSView*)_window.contentView).rootView = v;
 	
 	_horizObjects 	= [[NSC.randomPalette withMinItems:199] map:^id(id obj) {
 		 return @{@"color": @{ @"name" : [obj nameOfColor], @"color": obj} }; 
 	}].mutableCopy;
 	_vertObjects	= [NSMD newInstances:50]; 
 
-	 
-	TUILabel *label;
-	[containerView.rootView addSubview: label = [TUILabel.alloc initWithFrame:
-									CGRectMake(containerView.rootView.width / 2, 0, 250, 50)]];
-	label.text = @"Right click on any cell for options";
-	label.font = AtoZ.controlFont;
-	label.backgroundColor = [NSColor clearColor];
-//	 addSubview:label];
-	
 	[_verticalLayout reloadData];
 	[_horizontalLayout reloadData];
 }
+//	TUILabel *label;
+//	[((TUINSView*)_window.contentView).rootView addSubview: label = [TUILabel.alloc initWithFrame:
+//									CGRectMake(_window.width / 2, 0, 250, 50)]];
+//	label.text = @"Right click on any cell for options";
+//	label.font = AtoZ.controlFont;
+//	label.backgroundColor = [NSColor clearColor];
+//	 addSubview:label];
 
 #pragma mark - AHLayoutDataSource methods
 

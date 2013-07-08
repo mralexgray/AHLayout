@@ -14,27 +14,27 @@
 @end
 
 @implementation ExampleView
-@synthesize expanded, dictionary, selected, textRenderer, originalSize;
 
 - (id)initWithFrame:(CGR)frame {
-	if (self != [super initWithFrame:frame]) return nil;
-//	self.opaque = YES;
-	self.textRenderers = @[textRenderer = TUITextRenderer.new];
-//	self.clipsToBounds = YES;
-	self.backgroundColor = [NSColor lightGrayColor];
+	if (!(self = [super initWithFrame:frame])) return nil;
+//	self.opaque = self.clipsToBounds = YES;
+	self.textRenderers 	= @[_textRenderer = TUITextRenderer.new];
+	self.backgroundColor = RANDOMGRAY;
+//	[self bind:@"name" toObject: withKeyPath: nilValue:@""];
+	// transform:<#^id(id value)transformBlock#>objects[tag][@"color"][@"name"];
+//	[_textRenderer bind:@"attributedString" toObject:_objects[self.tag] withKeyPath:@"color.name" transform:^id(id value) {
+//		return  [NSAttributedString.alloc initWithString:value ?: NSS.randomDicksonism];
+//		}];
+		//self.objects[@"color"]];// $(@"%ld", self.tag)];
 	return self;
 }
-
-- (AHLayout*) parentLayout 		 {		return (AHLayout*) self.superview;	}
-	
+- (AHLayout*) parentLayout 		 {	return (AHLayout*)self.superview;	}
 - (void) setTag:(NSI) tag 	 	 {
 	[super setTag:tag];
 	NSS* name = self.objects[tag][@"color"][@"name"];
-	textRenderer.attributedString = [NSAttributedString.alloc initWithString: name ?: NSS.randomDicksonism];//self.objects[@"color"]];// $(@"%ld", self.tag)];
+	_textRenderer.attributedString = [NSAttributedString.alloc initWithString: name ?: NSS.randomDicksonism];//self.objects[@"color"]];// $(@"%ld", self.tag)];
 }
-
-
-- (NSMenu*) menuForEvent:(NSE*)event 	
+- (NSMenu*) menuForEvent:(NSE*)event
 {
 	__block NSMenu *menu = NSMenu.new;
 	[@{         @"Insert Above" : @"insertObject", 	@"Insert Below":@"insertObjectBelow", 
@@ -49,13 +49,13 @@
 {
 	__block CGSize tSize; __block CGF w, h;
 	self.parentLayout.typeOfLayout == AHLayoutHorizontal ? ^{
-				     w = expanded  ? originalSize.width : self.parentLayout.width;
+				     w = _expanded  ? _originalSize.width : self.parentLayout.width;
 			    tSize = 	   (CGS)  { w, self.height };
-	}() : ^{		  h = expanded  ? originalSize.height : self.parentLayout.height;
+	}() : ^{		  h = _expanded  ? _originalSize.height : self.parentLayout.height;
 		       tSize = 		(CGS)  { self.width, h  };
 	}();
 	[self.parentLayout beginUpdates];
-	[self.parentLayout resizeViewAtIndex:self.tag toSize:tSize animationBlock:nil  completionBlock:^{ 	expanded = !expanded;	 }];
+	[self.parentLayout resizeViewAtIndex:self.tag toSize:tSize aniBlock:nil  completion:^{ 	_expanded = !_expanded;	 }];
 	[self.parentLayout endUpdates];
 }
 - (void) insertObject				{	[_objects addObject:NSMD.new];
@@ -65,18 +65,18 @@
 											[self.parentLayout insertViewAtIndex:self.tag-1];
 }
 - (void) prepend 					{	[_objects addObject:NSMD.new];
-											[self.parentLayout prependNumOfViews:1 animationBlock:nil completionBlock:nil];
+											[self.parentLayout prependNumOfViews:1 aniBlock:nil completion:nil];
 }
 - (IBAction)remove:(id)sender 	{	[_objects removeObjectAtIndex:self.tag];
 											[self.parentLayout removeViewsAtIndexes:[NSIndexSet indexSetWithIndex:self.tag ]
-											                         animationBlock:nil           completionBlock:nil ];
+											                         aniBlock:nil           completion:nil ];
 }
 
 - (void)drawRect:(CGR)rect
 {
 	CGR b 		  = self.bounds;
 	CGCREF ctx = TUIGraphicsGetCurrentContext();
-	originalSize = CGSizeEqualToSize(CGSizeZero, originalSize) ? b.size : originalSize;
+	_originalSize = CGSizeEqualToSize(CGSizeZero, _originalSize) ? b.size : _originalSize;
 	LOGWARN(@"DRAWRECT: %@", AZString(b));
 	if(self.selected) {
 		NSLog(@"iam selected!");
@@ -102,8 +102,8 @@
 	
 	// text
 	CGRect textRect = CGRectOffset(b, 15, -15);
-	textRenderer.frame = textRect; // set the frame so it knows where to draw itself
-	[textRenderer draw];
+	_textRenderer.frame = textRect; // set the frame so it knows where to draw itself
+	[_textRenderer draw];
 	
 }
 
